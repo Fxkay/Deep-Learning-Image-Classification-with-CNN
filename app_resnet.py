@@ -11,18 +11,18 @@ CLASS_NAMES = [
     "dog", "frog", "horse", "ship", "truck"
 ]
 
-# Load the trained model
+# Loading the trained model
 
 
 @st.cache_resource
 def load_cnn_model():
-    return load_model("best_resnet_model.h5")
+    return load_model("cifar10_resnet_final_2.h5")
 
 
 model = load_cnn_model()
 
 # Title and instructions
-st.title("🚀 CIFAR-10 Image Classifier (using - InceptionV3)")
+st.title("🚀 CIFAR-10 Image Classifier (using - ResNet)")
 st.write("Upload an image, and the model will predict the object class.")
 
 # File uploader
@@ -35,10 +35,10 @@ if uploaded_file:
     image = Image.open(uploaded_file).convert("RGB")
     st.image(image, caption="Uploaded Image", use_column_width=True)
 
-    # ✅ Resize to match InceptionV3 input
+    # ✅ Resize to match ResNet input
     image_resized = image.resize((75, 75))
 
-    # ✅ Preprocess using InceptionV3-specific preprocessing
+    # ✅ Preprocess using ResNet  preprocessing
     image_array = img_to_array(image_resized)
     image_array = preprocess_input(image_array)
     image_array = np.expand_dims(image_array, axis=0)
